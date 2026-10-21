@@ -1082,8 +1082,40 @@ textarea.kinput{height:auto;padding:10px 12px;line-height:1.6;resize:vertical}
 .to-bottom:hover{color:var(--t1)}
 
 </style>
+
+<style id="demo-access-style">
+body.demo-locked{overflow:auto}
+body.demo-locked #app,body.demo-locked #layer,body.demo-locked #toasts{display:none!important}
+.demo-access{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;padding:24px;background:#F4F7FC;overflow:auto}
+.demo-access[hidden]{display:none!important}
+.demo-access-panel{width:min(100%,400px);padding:36px;background:#fff;border:1px solid #E5E6EB;border-radius:18px;box-shadow:0 12px 48px rgba(15,23,42,.07)}
+.demo-access-brand{display:inline-block;background:#E2231A;color:#fff;font-size:20px;font-weight:700;padding:2px 9px;margin-bottom:28px}
+.demo-access h1{font-size:26px;line-height:1.3;margin:0 0 10px;color:#1D2129}
+.demo-access p{font-size:15px;color:#4E5969;margin:0 0 26px}
+.demo-access label{display:block;font-size:14px;font-weight:600;margin-bottom:8px}
+.demo-access input{width:100%;height:48px;padding:0 14px;border:1px solid #C9CDD4;border-radius:8px;background:#fff;font-size:16px}
+.demo-access input:focus-visible,.demo-access button:focus-visible{outline:3px solid #D6E2FF;outline-offset:2px;border-color:#2B6BFF}
+.demo-access button{width:100%;height:46px;border-radius:8px;background:#2B6BFF;color:#fff;font-weight:600;margin-top:6px}
+.demo-access button:hover{background:#1F5AEB}
+.demo-access .demo-access-error{color:#C72B26;font-size:14px;min-height:22px;margin:8px 0}
+@media(max-width:480px){.demo-access{padding:20px}.demo-access-panel{padding:28px 24px}}
+</style>
 </head>
-<body>
+<body class="demo-locked">
+<section id="demo-access" class="demo-access" aria-labelledby="demo-access-title">
+ <div class="demo-access-panel">
+  <div class="demo-access-brand">Lenovo</div>
+  <h1 id="demo-access-title">联想同享</h1>
+  <p>此演示需输入访问密码。</p>
+  <form id="demo-access-form">
+   <label for="demo-access-password">访问密码</label>
+   <input id="demo-access-password" type="password" required autocomplete="off" autofocus aria-describedby="demo-access-error">
+   <p id="demo-access-error" class="demo-access-error" role="status" aria-live="polite"></p>
+   <button type="submit">进入演示</button>
+  </form>
+ </div>
+</section>
+
 <div id="app" class="app"><aside id="sb" class="sb"></aside><button id="sb-open" class="sb-open" data-act="sb-expand" title="展开侧边栏"></button><main id="main" class="main"></main></div>
 <div id="layer"></div>
 <div id="toasts"></div>
@@ -3690,6 +3722,31 @@ function init() {
 }
 init();
 
+</script>
+
+<script id="demo-access-script">
+(() => {
+ const gate=document.getElementById('demo-access');
+ const input=document.getElementById('demo-access-password');
+ const error=document.getElementById('demo-access-error');
+ document.getElementById('demo-access-form').addEventListener('submit',async event => {
+  event.preventDefault();
+  const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(input.value));
+  const digest=Array.from(new Uint8Array(bytes),byte=>byte.toString(16).padStart(2,'0')).join('');
+  if(digest==='93d974d472940f364f66f9ed9a1b86d460d6019edc880dad6c2231656bf8a42d'){
+   input.value='';
+   document.body.classList.remove('demo-locked');
+   gate.hidden=true;
+   document.getElementById('main').setAttribute('tabindex','-1');
+   document.getElementById('main').focus();
+  }else{
+   error.textContent='密码不正确，请重新输入。';
+   input.setAttribute('aria-invalid','true');
+   input.select();
+  }
+ });
+ input.addEventListener('input',()=>{error.textContent='';input.removeAttribute('aria-invalid');});
+})();
 </script>
 </body>
 </html>
