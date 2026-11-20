@@ -248,7 +248,7 @@ section{margin-bottom:48px;scroll-margin-top:24px}
         <div class="hero-card" data-inspector-id="html:e2f0a3f8:29"><div class="label" data-inspector-id="html:e2f0a3f8:30">会议日期</div><div class="value" data-inspector-id="html:e2f0a3f8:31">11-18<small data-inspector-id="html:e2f0a3f8:32">2026</small></div></div>
         <div class="hero-card" data-inspector-id="html:e2f0a3f8:33"><div class="label" data-inspector-id="html:e2f0a3f8:34">会议地点</div><div class="value" style="font-size:20px" data-inspector-id="html:e2f0a3f8:35">L3-K1-07</div></div>
         <div class="hero-card" id="attCard" style="cursor:pointer" data-inspector-id="html:e2f0a3f8:36">
-          <div class="label" data-inspector-id="html:e2f0a3f8:37">名单人数 <span style="font-size:10px;color:var(--accent)" data-inspector-id="html:e2f0a3f8:38">点击展开</span></div>
+          <div class="label" data-inspector-id="html:e2f0a3f8:37">应到人数 <span style="font-size:10px;color:var(--accent)" data-inspector-id="html:e2f0a3f8:38">点击展开</span></div>
           <div class="value" data-inspector-id="html:e2f0a3f8:39"><span class="counter" data-attendee-count data-inspector-id="html:e2f0a3f8:40">0</span><small data-inspector-id="html:e2f0a3f8:41">人</small></div>
           <div class="att-expand" id="attExpand" data-inspector-id="html:e2f0a3f8:42">
             <div class="att-list" id="attListInline" data-inspector-id="html:e2f0a3f8:43"></div>
@@ -370,7 +370,7 @@ section{margin-bottom:48px;scroll-margin-top:24px}
           <h3>组织项目沟通&amp;协同</h3>
           <ul>
             <li>由创新中心杨润牵头，统筹并协调 UX Agent 相关分工与沟通，让所有人围绕同一项目目标推进。</li>
-            <li>创建项目交流群，邀请所有项目相关成员进群，用于跨团队协同。</li>
+            <li>创建项目交流群，邀请所有项目相关成员进群，用于跨团队协同。（产品 pm：江珊）</li>
           </ul>
         </article>
       </div>
@@ -379,10 +379,10 @@ section{margin-bottom:48px;scroll-margin-top:24px}
     <section id="attendees" class="reveal" data-inspector-id="html:e2f0a3f8:193">
       <div class="sec-head" data-inspector-id="html:e2f0a3f8:194"><span class="sec-num" data-inspector-id="html:e2f0a3f8:195">03</span><h2 data-inspector-id="html:e2f0a3f8:196">参会人员</h2></div>
       <div class="att-summary" data-inspector-id="html:e2f0a3f8:198">
-        <div class="as-item" data-inspector-id="html:e2f0a3f8:199"><div class="as-label" data-inspector-id="html:e2f0a3f8:200">应到人数</div><div class="as-value" data-inspector-id="html:e2f0a3f8:201" id="expectedCount">31 人</div></div>
+        <div class="as-item" data-inspector-id="html:e2f0a3f8:199"><div class="as-label" data-inspector-id="html:e2f0a3f8:200">应到人数</div><div class="as-value" data-inspector-id="html:e2f0a3f8:201" id="expectedCount">30 人</div></div>
         <div class="as-item" data-inspector-id="html:e2f0a3f8:202"><div class="as-label" data-inspector-id="html:e2f0a3f8:203">实际参会</div><div class="as-value" style="color:var(--green)" data-inspector-id="html:e2f0a3f8:204" id="presentCount">27 人</div></div>
         <details class="as-item leave-summary">
-          <summary><span class="as-label">请假</span><strong class="as-value" id="leaveCount">4 人</strong></summary>
+          <summary><span class="as-label">请假</span><strong class="as-value" id="leaveCount">3 人</strong></summary>
           <ul id="leaveList"></ul>
         </details>
       </div>
@@ -446,13 +446,13 @@ const attendees=[
   {name:'胡月'},{name:'王利亨'},{name:'林芝希'},{name:'张伟希'},{name:'刘琳琳'},
   {name:'王燕蓝'},{name:'王晶',retired:true},{name:'何静静'},{name:'张明明'},{name:'于辉'},
   {name:'莫方林'},{name:'王晚丁'},{name:'韦占宇'},{name:'郑凯伦'},
-  {name:'包晗',leave:true},{name:'孙鲁林',leave:true},{name:'骆金星',leave:true}
+  {name:'孙鲁林',leave:true},{name:'骆金星',leave:true}
 ];
 
 const activeAttendees = attendees.filter(person => !person.retired);
 const onLeave = activeAttendees.filter(person => person.leave);
-const leaveNames = ['孙鲁林','骆金星','荆莉莉','包晗'].filter(name => onLeave.some(person => person.name === name));
-document.querySelector('[data-attendee-count]').dataset.target = attendees.length;
+const leaveNames = ['孙鲁林','骆金星','荆莉莉'].filter(name => onLeave.some(person => person.name === name));
+document.querySelector('[data-attendee-count]').dataset.target = activeAttendees.length;
 document.getElementById('expectedCount').textContent = activeAttendees.length + ' 人';
 document.getElementById('presentCount').textContent = (activeAttendees.length - onLeave.length) + ' 人';
 document.getElementById('leaveCount').textContent = onLeave.length + ' 人';
@@ -476,8 +476,8 @@ attGrid.innerHTML=attendees.map(a=>`
   </div>
 `).join('');
 
-document.getElementById('attListInline').innerHTML=attendees.map(a=>
-  `<span class="${a.leave?'leave':''}">${a.name}${a.retired?'（已退休）':a.leave?'（请假）':''}</span>`
+document.getElementById('attListInline').innerHTML=activeAttendees.map(a=>
+  `<span class="${a.leave?'leave':''}">${a.name}${a.leave?'（请假）':''}</span>`
 ).join('');
 
 document.getElementById('attCard').addEventListener('click',function(){
