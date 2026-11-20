@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html data-src-ver="e2f0a3f8" lang="zh-CN" data-inspector-id="html:e2f0a3f8:0">
+<head data-inspector-id="html:e2f0a3f8:1"><meta property="og:title" content="cx-meeting-minutes"><meta property="og:image" content="https://lf3-static.bytednsdoc.com/obj/eden-cn/ylcylz_fsph_ryhs/ljhwZthlaukjlkulzlp/feisuda/avatar/12.svg">
+<meta charset="UTF-8" data-inspector-id="html:e2f0a3f8:2">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-inspector-id="html:e2f0a3f8:3">
+<title>PRC CX 平台沟通会 · 会议纪要</title>
+<style>
+:root{
+  --bg:#f4f6fa;--surface:#ffffff;--ink:#1a2332;--ink2:#4a5568;--ink3:#718096;
+  --line:#e2e8f0;--brand:#1e3a5f;--brand2:#2b6cb0;--accent:#3182ce;--accent-l:#ebf4ff;
+  --warm:#dd6b20;--warm-l:#fff5eb;--green:#2f855a;--green-l:#f0fff4;--purple:#6b46c1;--purple-l:#faf5ff;
+  --red:#c53030;--shadow:0 1px 3px rgba(26,35,50,.06),0 8px 24px rgba(26,35,50,.06);
+  --shadow-lg:0 4px 12px rgba(26,35,50,.08),0 16px 40px rgba(26,35,50,.10);
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px}
+
+.layout{display:flex;min-height:100vh}
+.sidebar{width:260px;flex-shrink:0;background:linear-gradient(180deg,#1a2332 0%,#1e3a5f 100%);color:#cbd5e0;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;padding:28px 0;z-index:50}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:#4a5568;border-radius:2px}
+.main{min-width:0;flex:1;margin-left:260px;padding:0 48px 80px;max-width:1180px}
+
+.side-logo{padding:0 24px 24px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:20px}
+.side-logo .tag{font-size:11px;letter-spacing:2px;color:#63b3ed;text-transform:uppercase;font-weight:600}
+.side-logo h3{color:#fff;font-size:15px;margin-top:6px;line-height:1.5;font-weight:600}
+.side-logo .meta{font-size:12px;color:#718096;margin-top:8px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 24px;cursor:pointer;font-size:13.5px;color:#a0aec0;transition:all .2s;border-left:3px solid transparent;text-decoration:none}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;background:rgba(49,130,206,.15);border-left-color:#63b3ed}
+.nav-item .num{font-size:11px;font-weight:700;color:#4a5568;min-width:18px}
+.nav-item.active .num{color:#63b3ed}
+.nav-group{font-size:11px;color:#4a5568;letter-spacing:1.5px;padding:18px 24px 8px;text-transform:uppercase}
+
+.hero{padding:48px 0 32px;border-bottom:1px solid var(--line);margin-bottom:36px}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--accent-l);color:var(--brand2);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;letter-spacing:.5px}
+.hero .eyebrow::before{content:"";width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:28px;font-weight:700;margin:16px 0 8px;letter-spacing:-.5px;color:var(--ink);line-height:1.4}
+.hero .subtitle{font-size:15px;color:var(--ink2);margin-bottom:28px}
+.hero-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.hero-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;transition:all .25s;cursor:default}
+.hero-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:var(--accent)}
+.hero-card .label{font-size:12px;color:var(--ink3);margin-bottom:6px}
+.hero-card .value{font-size:24px;font-weight:700;color:var(--brand)}
+.hero-card .value small{font-size:13px;font-weight:400;color:var(--ink3);margin-left:4px}
+.att-expand{max-height:0;overflow:hidden;transition:max-height .35s ease;margin-top:0}
+.att-expand.open{max-height:500px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.att-list{display:flex;flex-wrap:wrap;gap:8px}
+.att-list span{font-size:12.5px;color:var(--brand2);background:var(--accent-l);padding:4px 12px;border-radius:12px;font-weight:500}
+.att-list span.leave{background:#fed7d7;color:var(--red)}
+
+section{margin-bottom:48px;scroll-margin-top:24px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding:16px 20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.sec-head .sec-num,.topic-disclosure .disclosure-number{display:grid;place-items:center;flex:none;width:30px;height:30px;border-radius:8px;background:var(--brand);color:#fff;font-weight:700}
+.sec-head .sec-num{font-size:12px;letter-spacing:.5px}
+.sec-head h2{font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-.2px}
+
+.image-preview{display:block;width:100%;padding:0;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:zoom-in}
+.image-preview img{display:block;width:100%;height:auto}
+.image-preview:focus-visible,.image-dialog button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.topic-figure{margin:18px 0 0;padding:20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.flow-diagram{--flow-line:#91a4ba;--flow-stem:18px}
+.flow-root{width:fit-content;max-width:100%;margin:0 auto;padding:13px 20px;text-align:center;border:1px solid #f2e5e7;border-radius:10px;background:#fcf6f7;position:relative}
+.flow-root h3{font-size:17px;line-height:1.4;margin-bottom:4px}
+.flow-root p{color:var(--ink2);font-size:14px}
+.flow-root::after{content:"";position:absolute;top:100%;left:50%;height:var(--flow-stem);border-left:1px solid var(--flow-line)}
+.flow-branches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3%;padding-top:calc(var(--flow-stem) * 2);position:relative}
+.flow-branches::before{content:"";position:absolute;top:var(--flow-stem);left:calc(50% / 3 - 1%);right:calc(50% / 3 - 1%);border-top:1px solid var(--flow-line)}
+.flow-branch{position:relative;padding:14px 15px;border-radius:10px;background:var(--flow-bg);min-width:0}
+.flow-branch:nth-child(1){--flow-bg:#fcf2f3}
+.flow-branch:nth-child(2){--flow-bg:#eef7f5}
+.flow-branch:nth-child(3){--flow-bg:#f0f3fb}
+.flow-branch::before{content:"";position:absolute;bottom:100%;left:50%;height:var(--flow-stem);border-left:1px solid var(--flow-line)}
+.flow-branch::after{content:"";position:absolute;bottom:100%;left:50%;transform:translateX(-50%);border-inline:4px solid transparent;border-top:5px solid var(--flow-line)}
+.flow-branch h4{font-size:15px;text-align:center;margin-bottom:8px}
+.flow-branch ul{font-size:14px;line-height:1.55;color:var(--ink2);padding-left:1.2em}
+.flow-branch li + li{margin-top:4px}
+.flow-actions{display:flex;justify-content:flex-end;margin-top:8px}
+.preview-action{color:var(--brand2);font:inherit;font-size:13px;font-weight:600;padding:5px 0;border:0;background:none;cursor:zoom-in}
+.preview-action:hover{text-decoration:underline;text-underline-offset:3px}
+.preview-action:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.topic-table{padding:22px clamp(14px,3vw,32px);background:#f4f7fb;border-radius:0 0 var(--radius) var(--radius)}
+.table-scroll{overflow:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.assignment-table{width:100%;min-width:670px;border-collapse:collapse;text-align:left;font-size:14px}
+.assignment-table caption{padding:10px 14px;font-weight:700;text-align:left}
+.assignment-table :is(th,td){padding:10px 14px;vertical-align:top;border-top:1px solid var(--line)}
+.assignment-table thead{background:var(--accent-l);color:var(--brand)}
+.assignment-table tbody th{color:var(--brand2)}
+.assignment-table tbody td:nth-child(2){min-width:145px;font-weight:600}
+.assignment-table tbody td:nth-child(3){min-width:130px}
+.assignment-table tbody tr:nth-child(even){background:#f7f9fc}
+@media(max-width:760px){
+  .flow-root{width:100%}
+  .flow-root::after,.flow-branches::before,.flow-branch::before,.flow-branch::after{display:none}
+  .flow-branches{grid-template-columns:1fr;gap:8px;padding-top:12px}
+  .flow-branch h4{text-align:left}
+  .topic-figure{padding:14px}
+}
+.topic-summary{padding:18px 20px;border-radius:var(--radius);background:#eaf1f9}
+.topic-summary h3{font-size:17px;font-weight:700}
+.topic-context{margin:4px 0 10px;color:var(--brand);font-size:13px;font-weight:600}
+.topic-disclosure{margin-top:24px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.topic-disclosure[open]{border-color:var(--accent);box-shadow:var(--shadow-lg)}
+.topic-disclosure summary{display:flex;align-items:center;gap:14px;padding:18px 20px;cursor:pointer;list-style:none;border-radius:var(--radius)}
+.topic-disclosure summary::-webkit-details-marker{display:none}
+.topic-disclosure[open] summary{border-bottom:1px solid var(--line);border-bottom-left-radius:0;border-bottom-right-radius:0}
+.topic-disclosure .disclosure-number{font-size:15px}
+.topic-disclosure .disclosure-title{flex:1;font-size:16px;font-weight:700}
+.topic-disclosure .disclosure-tags{display:flex;gap:6px;flex-wrap:wrap}
+.topic-disclosure .disclosure-tags span{padding:4px 10px;border-radius:20px;background:var(--accent-l);color:var(--brand2);font-size:11px;font-weight:600}
+.topic-disclosure .disclosure-arrow{flex:none;width:0;height:0;border-inline:4px solid transparent;border-top:7px solid var(--ink3)}
+.topic-disclosure[open] .disclosure-arrow{transform:rotate(180deg)}
+.topic-disclosure summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.topic-disclosure .topic-card{padding:18px;border:1px solid var(--line);background:var(--surface)}
+.topic-disclosure .topic-card:hover{box-shadow:var(--shadow)}
+.topic-disclosure .topic-card h4{margin:10px 0 7px;color:var(--ink)}
+.topic-disclosure .topic-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--topic-accent);color:#fff;font-size:15px;font-weight:700}
+.topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:32px 22px 36px 64px}
+.topic-card{padding:14px 16px 16px;border-radius:var(--radius);background:var(--topic-bg);border-top:3px solid var(--topic-accent)}
+.topic-card h4{margin-bottom:7px;color:var(--topic-accent);font-size:15px}
+.topic-card p{margin-bottom:8px;font-size:13px}
+.topic-grid-management .topic-card:nth-child(1){--topic-accent:#2b6cb0}
+.topic-grid-management .topic-card:nth-child(2){--topic-accent:#b9571b}
+
+.topic-summary ul,.topic-card ul{padding-left:1.25em;color:var(--ink2);font-size:14px}
+.topic-summary li + li,.topic-card li + li{margin-top:5px}
+@media(max-width:600px){
+  .topic-grid{grid-template-columns:1fr;padding:14px}
+  .topic-disclosure summary{padding:14px;gap:10px}
+  .topic-disclosure .disclosure-tags{display:none}
+  .sec-head{padding:12px 14px}
+}
+.image-dialog{position:fixed;inset:0;margin:auto;width:min(95vw,1530px);max-height:90vh;padding:14px;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+.image-dialog::backdrop{background:rgba(22,32,47,.7)}
+.image-dialog form{display:flex;justify-content:flex-end;margin-bottom:10px}
+.image-dialog button{padding:5px 12px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);cursor:pointer}
+.image-dialog .image-scroll{overflow:auto}
+.image-dialog .image-frame{min-width:780px}
+.image-dialog img{display:block;width:100%;height:auto}
+.image-dialog .flow-diagram{padding:12px 14px 18px}
+.highlight{background:linear-gradient(180deg,transparent 60%,#fef3c7 60%);padding:0 2px;font-weight:600;color:var(--ink)}
+
+.pillar-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0}
+.pillar-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;transition:all .25s}
+.pillar-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.pillar-card .p-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:16px;font-weight:700;color:#fff}
+.pillar-card h4{font-size:14.5px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.pillar-card p{font-size:13px;color:var(--ink2);line-height:1.6}
+
+.group-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:14px 0}
+.group-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;display:flex;align-items:center;gap:14px;transition:all .25s}
+.group-card:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+.group-card .g-badge{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--brand));color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;text-align:center;line-height:1.2}
+.group-card .g-info h4{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.group-card .g-info p{font-size:12.5px;color:var(--ink3);margin:0}
+
+.todo-stats{text-align:right;margin-bottom:12px;font-size:13px;color:var(--ink3)}
+.todo-stats b{color:var(--brand)}
+.todo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.todo-card{--tc-accent:var(--accent);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;position:relative;overflow:hidden}
+.todo-card.tc-warm{--tc-accent:#df6a1d}
+.todo-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--tc-accent)}
+.todo-card:hover{box-shadow:var(--shadow)}
+
+.todo-card h3{font-size:15px;font-weight:700;line-height:1.5;margin-bottom:8px}
+.todo-card p,.todo-card ul{font-size:14px;color:var(--ink2)}
+.todo-card ul{padding-left:1.2em}
+.todo-card li + li{margin-top:5px}
+
+.att-summary{display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.att-summary .as-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 20px;flex:1;min-width:140px}
+.att-summary .as-item .as-label{display:block;font-size:12px;color:var(--ink3)}
+.att-summary .as-item .as-value{font-size:22px;font-weight:700;color:var(--brand)}
+.leave-summary summary{cursor:pointer;list-style:none;position:relative}
+.leave-summary summary::-webkit-details-marker{display:none}
+.leave-summary summary::after{content:"";position:absolute;top:8px;right:0;border-inline:4px solid transparent;border-top:6px solid var(--ink3)}
+.leave-summary[open] summary::after{transform:rotate(180deg)}
+.att-summary .leave-summary .as-value{display:block;color:var(--red)}
+.leave-summary ul{padding-left:1.2em;color:var(--ink2);font-size:14px;margin-top:8px}
+.att-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.att-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;text-align:center;transition:all .25s;cursor:default}
+.att-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--accent)}
+.att-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--brand));color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;margin:0 auto 10px}
+.att-card .name{font-size:14px;font-weight:600;color:var(--ink)}
+.att-card .role{font-size:11px;color:var(--ink3);margin-top:2px}
+
+.footer{margin-top:60px;padding:28px 0;border-top:1px solid var(--line);text-align:center;color:var(--ink3);font-size:12.5px}
+.footer b{color:var(--brand)}
+
+@media(max-width:900px){
+  .sidebar{display:none}
+  .main{margin-left:0;padding:0 20px 60px}
+  .hero-cards{grid-template-columns:repeat(2,1fr)}
+  .pillar-grid,.todo-grid,.group-grid{grid-template-columns:1fr}
+  .att-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width: 768px){
+  .sidebar{display:none}
+  .main{margin-left:0;padding:16px}
+  .hero-cards{grid-template-columns:1fr 1fr;gap:10px}
+  .hero-card{padding:14px}
+  .hero-card .value{font-size:20px}
+  .sec-head h2{font-size:18px}
+  .todo-grid{grid-template-columns:1fr}
+  .footer{font-size:11px;padding:20px 0}
+
+}
+@media (max-width: 480px){
+  .hero-cards{grid-template-columns:1fr}
+  h1{font-size:20px}
+}
+
+.reveal{opacity:0;transform:translateY(20px);transition:all .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* 隐藏平台水印 */
+[class*="watermark"],[class*="Watermark"],[id*="watermark"],[id*="Watermark"],
+[class*="ai-badge"],[class*="aiBadge"],[class*="generate-badge"],[class*="ai-generate"],
+[class*="footer-badge"],[class*="float-badge"]{display:none!important}
+</style>
+</head>
+<body data-inspector-id="html:e2f0a3f8:4">
+
+<div class="layout" data-inspector-id="html:e2f0a3f8:5">
+  <aside class="sidebar" data-inspector-id="html:e2f0a3f8:6">
+    <div class="side-logo" data-inspector-id="html:e2f0a3f8:7">
+      <div class="tag" data-inspector-id="html:e2f0a3f8:8">MEETING MINUTES</div>
+      <h3 data-inspector-id="html:e2f0a3f8:9">PRC CX 平台沟通会</h3>
+      <div class="meta" data-inspector-id="html:e2f0a3f8:11">2026.11.18 · L3-K1-07</div>
+    </div>
+    <div class="nav-group" data-inspector-id="html:e2f0a3f8:12">会议导航</div>
+    <a class="nav-item active" href="#overview" data-inspector-id="html:e2f0a3f8:13"><span class="num" data-inspector-id="html:e2f0a3f8:14">·</span>会议概览</a>
+    <a class="nav-item" href="#topics" data-inspector-id="html:e2f0a3f8:17"><span class="num" data-inspector-id="html:e2f0a3f8:18">01</span>核心议题</a>
+    <a class="nav-item" href="#todos" data-inspector-id="html:e2f0a3f8:19"><span class="num" data-inspector-id="html:e2f0a3f8:20">02</span>待办事项看板</a>
+    <a class="nav-item" href="#attendees" data-inspector-id="html:e2f0a3f8:21"><span class="num" data-inspector-id="html:e2f0a3f8:22">03</span>参会人员</a>
+  </aside>
+
+  <main class="main" data-inspector-id="html:e2f0a3f8:23">
+
+    <header class="hero" id="overview" data-inspector-id="html:e2f0a3f8:24">
+      <span class="eyebrow" data-inspector-id="html:e2f0a3f8:25">会议纪要 · MEETING MINUTES</span>
+      <h1 data-inspector-id="html:e2f0a3f8:26">PRC CX 平台沟通会</h1>
+      <p class="subtitle" data-inspector-id="html:e2f0a3f8:27">整体规划；分工&amp;Owner；待办事项</p>
+      <div class="hero-cards" data-inspector-id="html:e2f0a3f8:28">
+        <div class="hero-card" data-inspector-id="html:e2f0a3f8:29"><div class="label" data-inspector-id="html:e2f0a3f8:30">会议日期</div><div class="value" data-inspector-id="html:e2f0a3f8:31">11-18<small data-inspector-id="html:e2f0a3f8:32">2026</small></div></div>
+        <div class="hero-card" data-inspector-id="html:e2f0a3f8:33"><div class="label" data-inspector-id="html:e2f0a3f8:34">会议地点</div><div class="value" style="font-size:20px" data-inspector-id="html:e2f0a3f8:35">L3-K1-07</div></div>
+        <div class="hero-card" id="attCard" style="cursor:pointer" data-inspector-id="html:e2f0a3f8:36">
+          <div class="label" data-inspector-id="html:e2f0a3f8:37">名单人数 <span style="font-size:10px;color:var(--accent)" data-inspector-id="html:e2f0a3f8:38">点击展开</span></div>
+          <div class="value" data-inspector-id="html:e2f0a3f8:39"><span class="counter" data-attendee-count data-inspector-id="html:e2f0a3f8:40">0</span><small data-inspector-id="html:e2f0a3f8:41">人</small></div>
+          <div class="att-expand" id="attExpand" data-inspector-id="html:e2f0a3f8:42">
+            <div class="att-list" id="attListInline" data-inspector-id="html:e2f0a3f8:43"></div>
+          </div>
+        </div>
+        <div class="hero-card" id="todoCard" style="cursor:pointer" onclick="document.getElementById('todos').scrollIntoView({behavior:'smooth'})" data-inspector-id="html:e2f0a3f8:44">
+          <div class="label" data-inspector-id="html:e2f0a3f8:45">待办事项 <span style="font-size:10px;color:var(--accent)" data-inspector-id="html:e2f0a3f8:46">点击查看</span></div>
+          <div class="value" data-inspector-id="html:e2f0a3f8:47"><span class="counter" data-target="2" data-inspector-id="html:e2f0a3f8:48">0</span><small data-inspector-id="html:e2f0a3f8:49">项</small></div>
+        </div>
+      </div>
+    </header>
+
+    <section id="topics" class="reveal" data-inspector-id="html:e2f0a3f8:87">
+      <div class="sec-head" data-inspector-id="html:e2f0a3f8:88"><span class="sec-num" data-inspector-id="html:e2f0a3f8:89">01</span><h2 data-inspector-id="html:e2f0a3f8:90">核心议题讨论</h2></div>
+      <div class="topic-summary">
+          <h3>核心结论</h3>
+          <p class="topic-context">AI驱动用户体验新范式工作讨论会</p>
+          <ul>
+            <li>彻底抛弃传统按时间周期、按客群划分的管理与协作模式，所有人员以不同部分分工，共同参与并完成“用户体验新范式建设”，不代表原所属业务部门</li>
+            <li>以12月底为首个里程碑节点，采用敏捷模式推进，后续不再组织固定周期的集体例会，按需开展专题讨论即可</li>
+            <li>核心建设路径为通过知识本体搭建、中国区全量用户数据归集、中国区用户体验Skill体系搭建、Agent 保障与供给四大模块，并以任务（业务）飞轮衔接，让体验能力完全嵌入业务流程，不再有独立的CX管理角色</li>
+          </ul>
+      </div>
+      <figure class="topic-figure">
+        <div class="flow-diagram">
+          <div class="flow-root">
+            <h3>AI驱动用户体验新范式</h3>
+            <p>以 UX Agent 为核心引擎，支撑全业务环节体验优化</p>
+          </div>
+          <div class="flow-branches">
+            <div class="flow-branch">
+              <h4>全样实时处理</h4>
+              <ul>
+                <li>放弃原有抽样统计、滞后分析的体验优化模式</li>
+                <li>实现每一条用户反馈、每一次用户行为的实时闭环处理</li>
+              </ul>
+            </div>
+            <div class="flow-branch">
+              <h4>体验嵌入业务流程</h4>
+              <ul>
+                <li>将用户体验从业务旁的独立监督角色</li>
+                <li>转化为产品研发、营销、销售等全业务环节的内在组成部分</li>
+                <li>无需单独设置体验官角色</li>
+              </ul>
+            </div>
+            <div class="flow-branch">
+              <h4>前置体验仿真优化</h4>
+              <ul>
+                <li>不再做事后体验关联优化</li>
+                <li>依托AI能力提前通过虚拟用户仿真预判业务动作带来的体验效果</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="flow-actions"><button type="button" class="preview-action" aria-haspopup="dialog">放大查看流程图</button></div>
+      </figure>
+      <details class="topic-disclosure">
+        <summary>
+          <span class="disclosure-number" aria-hidden="true">二</span>
+          <span class="disclosure-title">会议机制与时间点</span>
+          <span class="disclosure-tags" aria-hidden="true"><span>会议机制</span><span>沟通节奏</span></span>
+          <span class="disclosure-arrow" aria-hidden="true"></span>
+        </summary>
+        <div class="topic-grid topic-grid-management">
+          <div class="topic-card">
+            <span class="topic-icon" aria-hidden="true">会</span>
+            <h4>会议机制</h4>
+            <ul>
+              <li>根据议题或需求组织 Brainstorming 或项目沟通</li>
+              <li>不做定期进度 review 与汇报</li>
+              <li>仅根据议题需要随时组织头脑风暴</li>
+            </ul>
+          </div>
+          <div class="topic-card">
+            <span class="topic-icon" aria-hidden="true">时</span>
+            <h4>沟通节奏</h4>
+            <ul>
+              <li><strong>会议沟通机制</strong>：建立“微信&amp;Teams”群组，作为快捷沟通渠道，全程采用敏捷推进模式，按需随时会议沟通，不设置固定评审／管理会议。</li>
+              <li><strong>Milestone</strong>：按分工合理制定 Check point，并于 <strong>12 月 31 日</strong>完成首次整体进度校验（会议沟通）。所有 KR 设置为可量化、有价值的结果。</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+      <details class="topic-disclosure">
+        <summary>
+          <span class="disclosure-number" aria-hidden="true">三</span>
+          <span class="disclosure-title">核心任务分工与要求</span>
+          <span class="disclosure-tags" aria-hidden="true"><span>项目分工表</span></span>
+          <span class="disclosure-arrow" aria-hidden="true"></span>
+        </summary>
+        <div class="topic-table">
+          <div class="table-scroll" tabindex="0" role="region" aria-label="项目分工表">
+            <table class="assignment-table">
+              <caption>项目分工表</caption>
+              <thead><tr><th scope="col">NO.</th><th scope="col">项目分工</th><th scope="col">Owner</th><th scope="col">核心内容</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">1</th><td>知识本体搭建</td><td>杨润、王利亨</td><td>完成用户体验领域的知识本体架构建设，保障 UX Agent 的输出精度/可信度，达到可嵌入生产环境的标准</td></tr>
+                <tr><th scope="row">2</th><td>中国区全量用户数据归集<br>Realtime Data</td><td>马敬卓、何静静、郑凯伦</td><td>完成中国区全量用户体验相关数据的实时归集与打通</td></tr>
+                <tr><th scope="row">3</th><td>中国区用户体验 Skill 体系建设</td><td>邓筱燕、张明明</td><td>建设中国区统一的用户体验技能沉淀体系，所有技能全部开放共享</td></tr>
+                <tr><th scope="row">4</th><td>任务（业务）飞轮衔接</td><td>王燕蓝、周玥</td><td>将用户体验能力与产品创新、业务流程全链路打通衔接</td></tr>
+                <tr><th scope="row">5</th><td>Agent 保障与供给<br>（Harness/Token Hub）</td><td>马梦昕、DTIT（TBD）</td><td>Harness（杨润牵头，找到 DTIT 与 FDE 工程师负责）<br>接 Token Hub，使 UX Agent 稳定/可靠/低成本运行（梦昕与姚振宇沟通）</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="flow-actions"><button type="button" class="preview-action table-preview" aria-haspopup="dialog">放大查看分工表</button></div>
+        </div>
+      </details>
+    </section>
+
+    <section id="todos" class="reveal" data-inspector-id="html:e2f0a3f8:181">
+      <div class="sec-head" data-inspector-id="html:e2f0a3f8:182"><span class="sec-num" data-inspector-id="html:e2f0a3f8:183">02</span><h2 data-inspector-id="html:e2f0a3f8:184">待办事项看板</h2></div>
+      <p class="todo-stats">共 <b id="todoCount">2</b> 项</p>
+      <div class="todo-grid" id="todoGrid">
+        <article class="todo-card tc-warm">
+          <h3>OKR 拆解及执行推进</h3>
+          <p>按五项分工表，由对应的各位 Owner 拆解并制定各自分工的细化“UX Agent”OKR，输出可量化、可衡量的关键里程碑结果，推进项目敏捷迭代。</p>
+        </article>
+        <article class="todo-card tc-warm">
+          <h3>组织项目沟通&amp;协同</h3>
+          <ul>
+            <li>由创新中心杨润牵头，统筹并协调 UX Agent 相关分工与沟通，让所有人围绕同一项目目标推进。</li>
+            <li>创建项目交流群，邀请所有项目相关成员进群，用于跨团队协同。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="attendees" class="reveal" data-inspector-id="html:e2f0a3f8:193">
+      <div class="sec-head" data-inspector-id="html:e2f0a3f8:194"><span class="sec-num" data-inspector-id="html:e2f0a3f8:195">03</span><h2 data-inspector-id="html:e2f0a3f8:196">参会人员</h2></div>
+      <div class="att-summary" data-inspector-id="html:e2f0a3f8:198">
+        <div class="as-item" data-inspector-id="html:e2f0a3f8:199"><div class="as-label" data-inspector-id="html:e2f0a3f8:200">应到人数</div><div class="as-value" data-inspector-id="html:e2f0a3f8:201" id="expectedCount">31 人</div></div>
+        <div class="as-item" data-inspector-id="html:e2f0a3f8:202"><div class="as-label" data-inspector-id="html:e2f0a3f8:203">实际参会</div><div class="as-value" style="color:var(--green)" data-inspector-id="html:e2f0a3f8:204" id="presentCount">27 人</div></div>
+        <details class="as-item leave-summary">
+          <summary><span class="as-label">请假</span><strong class="as-value" id="leaveCount">4 人</strong></summary>
+          <ul id="leaveList"></ul>
+        </details>
+      </div>
+      <div class="att-grid" id="attGrid" data-inspector-id="html:e2f0a3f8:208"></div>
+    </section>
+
+    <footer class="footer" data-inspector-id="html:e2f0a3f8:209">
+      <p data-inspector-id="html:e2f0a3f8:210"><b data-inspector-id="html:e2f0a3f8:211">PRC CX 平台沟通会</b> · 2026年11月18日 · L3-K1-07</p>
+    </footer>
+
+  </main>
+</div>
+
+<dialog class="image-dialog" aria-label="预览">
+  <form method="dialog"><button type="submit">关闭</button></form>
+  <div class="image-scroll"></div>
+</dialog>
+
+<script>
+const counters=document.querySelectorAll('.counter');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const el=e.target,t=+el.dataset.target,c=v=>el.textContent=Math.round(v);let s=0;const st=()=>{s+=t/30;if(s<t){c(s);requestAnimationFrame(st)}else c(t)};st();obs.unobserve(el)}})},{threshold:.5});
+counters.forEach(c=>obs.observe(c));
+
+const navItems=document.querySelectorAll('.nav-item');
+const secs=document.querySelectorAll('section[id],header[id]');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id});
+  navItems.forEach(n=>{n.classList.toggle('active',n.getAttribute('href')==='#'+cur)});
+});
+
+const revObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+const imageDialog = document.querySelector('.image-dialog');
+const previewScroll = imageDialog.querySelector('.image-scroll');
+const flowPreview = document.querySelector('.topic-figure .preview-action');
+const tablePreview = document.querySelector('.table-preview');
+
+function showPreview(content, label) {
+  previewScroll.replaceChildren(content);
+  imageDialog.setAttribute('aria-label', label);
+  imageDialog.showModal();
+  previewScroll.scrollLeft = 0;
+}
+
+flowPreview.addEventListener('click', () => {
+  const diagram = document.querySelector('.topic-figure .flow-diagram');
+  showPreview(diagram.cloneNode(true), 'AI驱动用户体验新范式流程图');
+});
+
+tablePreview.addEventListener('click', () => {
+  const table = document.querySelector('.assignment-table');
+  showPreview(table.cloneNode(true), '项目分工表');
+});
+
+const attendees=[
+  {name:'杨润'},{name:'燕霞'},{name:'江珊'},{name:'马梦昕'},{name:'刑又强'},
+  {name:'吕亦湘'},{name:'邓筱燕'},{name:'邓璐敏'},{name:'Icyee Li'},{name:'荆莉莉',leave:true},
+  {name:'魏蕾'},{name:'朱珍伊'},{name:'周玥'},{name:'冯姗姗'},{name:'马敬卓'},
+  {name:'胡月'},{name:'王利亨'},{name:'林芝希'},{name:'张伟希'},{name:'刘琳琳'},
+  {name:'王燕蓝'},{name:'王晶',retired:true},{name:'何静静'},{name:'张明明'},{name:'于辉'},
+  {name:'莫方林'},{name:'王晚丁'},{name:'韦占宇'},{name:'郑凯伦'},
+  {name:'包晗',leave:true},{name:'孙鲁林',leave:true},{name:'骆金星',leave:true}
+];
+
+const activeAttendees = attendees.filter(person => !person.retired);
+const onLeave = activeAttendees.filter(person => person.leave);
+const leaveNames = ['孙鲁林','骆金星','荆莉莉','包晗'].filter(name => onLeave.some(person => person.name === name));
+document.querySelector('[data-attendee-count]').dataset.target = attendees.length;
+document.getElementById('expectedCount').textContent = activeAttendees.length + ' 人';
+document.getElementById('presentCount').textContent = (activeAttendees.length - onLeave.length) + ' 人';
+document.getElementById('leaveCount').textContent = onLeave.length + ' 人';
+document.getElementById('leaveList').replaceChildren(...leaveNames.map(name => {
+  const item = document.createElement('li');
+  item.textContent = name;
+  return item;
+}));
+
+function initials(name){
+  if(/^[a-zA-Z]/.test(name)){return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}
+  return name.slice(0,1);
+}
+
+const attGrid=document.getElementById('attGrid');
+attGrid.innerHTML=attendees.map(a=>`
+  <div class="att-card">
+    <div class="att-avatar">${initials(a.name)}</div>
+    <div class="name">${a.name}</div>
+    <div class="role">${a.retired?'已退休':a.leave?'请假':'参会'}</div>
+  </div>
+`).join('');
+
+document.getElementById('attListInline').innerHTML=attendees.map(a=>
+  `<span class="${a.leave?'leave':''}">${a.name}${a.retired?'（已退休）':a.leave?'（请假）':''}</span>`
+).join('');
+
+document.getElementById('attCard').addEventListener('click',function(){
+  document.getElementById('attExpand').classList.toggle('open');
+});
+
+/* 隐藏平台水印 - 递归遍历含shadow DOM，多次重试 */
+(function(){
+  function walk(root, fn){
+    fn(root);
+    if(root.shadowRoot) walk(root.shadowRoot, fn);
+    root.querySelectorAll('*').forEach(el=>walk(el, fn));
+  }
+  function hideWatermark(){
+    walk(document, function(el){
+      if(el.nodeType!==1) return;
+      const t=(el.textContent||'').trim();
+      const alt=(el.alt||el.getAttribute&&el.getAttribute('aria-label')||'');
+      const isSmall = el.children.length<=2;
+      const matches = (t.includes('豆包')&&t.includes('AI')) || alt.includes('豆包') || alt.includes('AI生成');
+      if(matches && isSmall && t.length<40){
+        const p=el;
+        const parent=p.parentElement;
+        p.remove();
+        if(parent && parent.children.length===0) parent.remove();
+      }
+    });
+  }
+  [0,500,1500,3000].forEach(d=>setTimeout(hideWatermark,d));
+  new MutationObserver(hideWatermark).observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
+</body>
+</html>
