@@ -468,11 +468,11 @@ function initials(name){
 }
 
 const attGrid=document.getElementById('attGrid');
-attGrid.innerHTML=attendees.map(a=>`
+attGrid.innerHTML=activeAttendees.map(a=>`
   <div class="att-card">
     <div class="att-avatar">${initials(a.name)}</div>
     <div class="name">${a.name}</div>
-    <div class="role">${a.retired?'已退休':a.leave?'请假':'参会'}</div>
+    <div class="role">${a.leave?'请假':'参会'}</div>
   </div>
 `).join('');
 
