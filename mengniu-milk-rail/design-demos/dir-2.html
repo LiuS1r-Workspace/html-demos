@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>方向二 接扫大字 · 蒙牛双活动草稿</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --green:#00B34F; --deep:#0B4A28; --ink:#141414; --paper:#F6F6F2; }
+  * { box-sizing: border-box; }
+  body { margin: 0; color: var(--ink); background: var(--paper);
+    font-family: "WenQuanYi Micro Hei", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 16px; line-height: 1.45; }
+  button, input { font: inherit; }
+  button { cursor: pointer; }
+  button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid #E2B100; outline-offset: 3px; }
+  a { color: inherit; }
+  .fold { min-height: 100dvh; display: grid; grid-template-rows: 1fr 1fr; }
+  .pane { min-height: 0; padding: 16px; display: flex; flex-direction: column; }
+  .jie { background: #111; color: #F6F6F2; }
+  .sao { background: #F6F6F2; color: #111; }
+  .brand img { height: 28px; width: auto; background: #fff; padding: 4px 6px; }
+  h1 { margin: 0; font-size: clamp(96px, 26vw, 280px); line-height: .78; letter-spacing: -0.07em; }
+  .lead { margin: 6px 0; max-width: 28ch; }
+  .tools { margin-top: auto; display: flex; gap: 10px; align-items: flex-end; }
+  .carton, .calf { width: 92px; height: 92px; object-fit: cover; background: #e7f3de; }
+  .calf { object-fit: contain; background: #E7F4DF; }
+  .go, .ghost { min-height: 48px; padding: 0 14px; border-radius: 0; font-weight: 700; }
+  .go { border: 0; background: var(--green); color: #06210F; }
+  .ghost { background: transparent; color: inherit; border: 2px solid currentColor; }
+  .giant { font-size: clamp(56px, 14vw, 140px); line-height: .85; margin: 0; letter-spacing: -0.05em; }
+  .pips { display: flex; gap: 6px; margin: 6px 0; }
+  .pips i { width: 36px; height: 10px; background: #ddd; display: block; }
+  .pips i.on { background: var(--green); }
+  form { display: flex; gap: 8px; margin-top: 8px; }
+  input { min-height: 48px; min-width: 0; flex: 1; border: 2px solid #111; background: #fff; padding: 0 10px; }
+  .note, .mile { font-size: 14px; margin: 8px 0 0; }
+  .result { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+  .result[hidden] { display: none; }
+  .result img { width: 72px; height: 72px; object-fit: contain; background: #E7F4DF; }
+  .more { padding: 28px 16px 48px; background: #fff; }
+  .more h2 { font-size: 28px; margin: 0 0 8px; }
+  .nums { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+  .nums b { display: block; font-size: clamp(28px, 6vw, 56px); line-height: 1; }
+  @media (min-width: 960px) {
+    .fold { grid-template-columns: 1fr 1fr; grid-template-rows: minmax(100vh, auto); }
+    .pane { padding: 28px 36px 32px; }
+    .more { padding: 40px 48px 72px; }
+  }
+  @media (max-width: 420px) {
+    h1 { font-size: 92px; }
+    .nums { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="fold">
+  <section class="pane jie" aria-label="活动一 接住奶盒">
+    <div class="brand"><img src="assets/logo.png" alt="蒙牛"></div>
+    <h1>接</h1>
+    <p class="lead">活动一，奶盒出逃计划。点左、中、右。5 盒接住 3 盒过关。第 1 季「电梯不到一楼」，这一集是接住奶盒。</p>
+    <div class="tools">
+      <img class="carton" src="assets/carton-grass.png" alt="本活动已有的草原奶盒插画">
+      <button class="go" type="button" data-play>开始接奶盒</button>
+    </div>
+    <p class="note" data-play-note hidden>草稿只展示规则，不改原来的游戏进度。</p>
+  </section>
+  <section class="pane sao" aria-label="活动二 内箱码">
+    <p class="lead">活动二，产品内箱码。每个新码累计 1 次，并给 1 次挥棒机会。</p>
+    <h1>扫</h1>
+    <p class="giant" data-scans>0/3</p>
+    <div class="pips" aria-hidden="true"><i data-pip></i><i data-pip></i><i data-pip></i></div>
+    <form data-scan-form>
+      <input name="code" aria-label="内箱码" placeholder="盒内的码" autocomplete="off">
+      <button class="go" type="submit">记入</button>
+    </form>
+    <p class="mile" data-milestone>集满3次大奖尚未达成</p>
+    <p class="note" data-note>校验是演示，没有连接真实内箱系统。</p>
+    <div class="tools">
+      <img class="calf" src="assets/calf-cast.png" alt="临时概念小牛举起魔棒，不是官方牛宝宝">
+      <div>
+        <p>抽奖机会 <b data-chances>0</b></p>
+        <button class="ghost" type="button" data-draw>挥棒抽奖</button>
+      </div>
+    </div>
+    <div class="result" data-result hidden>
+      <img src="assets/calf-hold.png" alt="临时概念小牛双手托着演示礼盒">
+      <div>
+        <strong>演示奖品</strong>
+        <p>机会在点击时扣 1 次。没有金额和真实发货。</p>
+        <a href="motion-wand.html">看施法过程</a>
+        <button class="ghost" type="button" data-close>收起</button>
+      </div>
+    </div>
+  </section>
+</div>
+<section class="more">
+  <h2>两个活动都留在这一页</h2>
+  <div class="nums">
+    <p><b>5</b>盒掉下来，接住 3 盒过关</p>
+    <p><b>4</b>集：接住、选站、再接、开门</p>
+    <p><b>3</b>站奶盒集齐，另算活动一的封面</p>
+    <p><b>1</b>次大奖里程碑，集满 3 个新码</p>
+  </div>
+  <p>签到首日是动态表情，三日是番外。翻盒每季最多两次，奖品是限定封面。两周线上礼在短片和草原封面里二选一。全部是数字权益。活动二的「集满3次大奖」不写具体奖品，草稿里只达成一次。</p>
+</section>
+<script>
+(function () {
+  const used = new Set();
+  let scans = 0, chances = 0, milestone = false, locked = false;
+  const scansEl = document.querySelector('[data-scans]');
+  const chanceEl = document.querySelector('[data-chances]');
+  const mileEl = document.querySelector('[data-milestone]');
+  const note = document.querySelector('[data-note]');
+  const pips = [...document.querySelectorAll('[data-pip]')];
+  const result = document.querySelector('[data-result]');
+  const paint = () => {
+    scansEl.textContent = Math.min(scans, 3) + '/3';
+    chanceEl.textContent = String(chances);
+    pips.forEach((pip, index) => pip.classList.toggle('on', index < Math.min(scans, 3)));
+    mileEl.textContent = milestone ? '集满3次大奖已达成，只记这一次。' : '集满3次大奖尚未达成';
+  };
+  document.querySelector('[data-scan-form]').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const input = event.target.elements.code;
+    const code = input.value.trim();
+    if (!code) { note.textContent = '请先输入盒内的码。'; return; }
+    const key = code.toLowerCase();
+    if (used.has(key)) { note.textContent = '这个码已经累计过，不会再记一次。'; return; }
+    used.add(key); scans += 1; chances += 1;
+    if (scans >= 3 && !milestone) milestone = true;
+    input.value = '';
+    note.textContent = '新码已计入。校验只是演示。';
+    paint();
+  });
+  document.querySelector('[data-draw]').addEventListener('click', () => {
+    if (locked) return;
+    if (chances < 1) { note.textContent = '还没有抽奖机会。先记入一个新码。'; return; }
+    locked = true; chances -= 1; paint(); result.hidden = false;
+  });
+  document.querySelector('[data-close]').addEventListener('click', () => { result.hidden = true; locked = false; });
+  document.querySelector('[data-play]').addEventListener('click', () => { document.querySelector('[data-play-note]').hidden = false; });
+  paint();
+})();
+</script>
+</body>
+</html>
