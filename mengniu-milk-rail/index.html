@@ -460,6 +460,9 @@ body { display: grid; place-items: center; background: #e9f0e9; }
 'use strict';
 
 const key = 'mengniu-milk-rail-demo-v2';
+const drawTrial = new URLSearchParams(location.search).get('draw') === '100';
+const drawTrialLimit = 100;
+const drawTrialKey = 'test';
 const episodeNames = ['接住奶盒', '月球或深海', '再接一局', '一楼开门了'];
 const tourNames = { 1: '电梯不到一楼', 2: '冰箱半夜开门' };
 const routeNames = { moon: '月球', sea: '深海' };
@@ -473,7 +476,7 @@ const defaultState = () => ({
   time: 0, logged: false, tours: {}, drafts: {}, rewards: [],
   reminderMode: 'available', fulfillMode: 'ok', reminders: {}, messages: {},
   dayOffset: 0, checkins: {}, drawings: {}, extra: {}, lotteryMode: 'win', invitation: null,
-  offerDay: null, pollAnswers: {}
+  offerDay: null, pollAnswers: {}, trialOutcome: 'win', trialFulfillment: 'ok'
 });
 let state = defaultState();
 let storageAllowed = true;
@@ -527,7 +530,7 @@ function ids(label) {
 }
 function readRoute() {
   const [name = '', id = ''] = location.hash.slice(1).split('/');
-  return { name: name || 'mini', id: /^[a-z0-9-]*$/.test(id) ? id : '' };
+  return { name: name || (drawTrial ? 'draw' : 'mini'), id: /^[a-z0-9-]*$/.test(id) ? id : '' };
 }
 function go(name, id = '', replace = false) {
   if (lab.open) lab.close();
@@ -1129,8 +1132,9 @@ function rewardState(gift) {
 }
 function wallet() {
   const ongoing = [checkinId('first'), checkinId('triple')];
-  const winnings = [1, 2].flatMap(tour => allDraws(tour).map((result,index) => result.outcome === 'win' ? drawId(tour,index+1) : '').filter(Boolean));
-  const bonusIds = [...new Set([...ongoing, ...winnings, ...Object.keys(state.extra)])];
+  const sources = drawTrial ? [drawTrialKey, 1, 2] : [1, 2];
+  const winnings = sources.flatMap(tour => allDraws(tour).map((result,index) => result.outcome === 'win' ? drawId(tour,index+1) : '').filter(Boolean));
+  const bonusIds = [...new Set([...ongoing, ...winnings, ...Object.keys(state.extra).filter(id => drawTrial || readDrawId(id)[0] !== drawTrialKey)])];
   const scheduled = state.rewards.map((gift, index) =>
     ticketCard(gift.type ? giftNames[gift.type] : '两周线上礼', '第 ' + (index+1) + ' 轮 · 完成两周关卡后可兑',
       link('查看', 'reward', String(index), 'outline'), rewardState(gift))).reverse().join('');
@@ -1172,8 +1176,8 @@ function openLab() {
   if (catching) { stopMotion(); render(); }
   document.querySelector('#clock').innerHTML = weekLabels.map((label, index) => act(label, 'advance', String(index), 'secondary', index <= state.time)).join('');
   document.querySelector('#reminder-mode').value = state.reminderMode;
-  document.querySelector('#fulfill-mode').value = state.fulfillMode;
-  document.querySelector('#lottery-mode').value = state.lotteryMode;
+  document.querySelector('#fulfill-mode').value = drawTrial ? state.trialFulfillment : state.fulfillMode;
+  document.querySelector('#lottery-mode').value = drawTrial ? state.trialOutcome : state.lotteryMode;
   lab.showModal();
 }
 function advance(week) {
@@ -1188,6 +1192,17 @@ function advance(week) {
 }
 function resetAll() {
   stopMotion();
+  if (drawTrial) {
+    delete state.drawings[drawTrialKey];
+    for (const id of Object.keys(state.extra)) {
+      if (isTrialPrize(id)) delete state.extra[id];
+    }
+    state.trialOutcome = 'win';
+    state.trialFulfillment = 'ok';
+    save();
+    go('draw', '', true);
+    return;
+  }
   state = defaultState();
   attempt = null;
   pendingGift = 'bonus';
@@ -1256,6 +1271,8 @@ function drawId(tour, number) {
   return 'draw' + tour + number;
 }
 function readDrawId(id) {
+  const test = /^drawtest([1-9][0-9]?|100)$/.exec(id);
+  if (test) return [drawTrialKey, Number(test[1])];
   const match = /^draw([12])([12])$/.exec(id);
   return match ? [Number(match[1]), Number(match[2])] : [0, 0];
 }
@@ -1264,6 +1281,7 @@ function drawRecord(id) {
   return number ? allDraws(tour)[number - 1] : undefined;
 }
 function drawStock(tour) {
+  if (tour === drawTrialKey) return drawTrial ? Math.max(0, drawTrialLimit - allDraws(tour).length) : 0;
   return Math.max(0, Math.min(2, Object.keys(state.tours[tour]?.finished || {}).length) - allDraws(tour).length);
 }
 function bonusSpec(id) {
@@ -1320,29 +1338,35 @@ function calendar() {
 }
 function draw(raw) {
   const selected = Number(raw);
-  const tour = selected > 0 && selected <= publishedTour() ? selected : publishedTour();
+  const tour = drawTrial ? drawTrialKey : selected > 0 && selected <= publishedTour() ? selected : publishedTour();
   const left = drawStock(tour);
   const earlier = allDraws(tour);
   const previous = earlier.length ? link('查看上次结果', 'draw-result', drawId(tour, earlier.length), 'outline') : '';
   let choices = '';
-  if (!state.logged) choices = actions(link('登录参与', 'login', 'draw', 'gild'));
+  if (!state.logged && !drawTrial) choices = actions(link('登录参与', 'login', 'draw', 'gild'));
   else if (left > 0) {
     choices = '<div class="blind-choices">' + [1,2,3].map(number =>
       act('翻第 ' + number + ' 盒', 'flip', tour + '-' + number, 'gild')).join('') + '</div>';
+  } else if (drawTrial) {
+    choices = '<p>100 次体验机会已用完。可以查看中奖记录，或从演示菜单的「从头体验」重新开始。</p>';
   } else if (earlier.length < 2) {
     choices = actions(link('去完成关卡', 'activity', String(tour), 'gild'));
   }
-  return festival('gift-draw', '翻盒抽奖', '每季最多两次，第 1、2 个通关记录各解锁一次。',
-    '<section class="event-card"><span class="event-state">第 ' + tour + ' 季</span><h2>剩余 ' + left + ' 次</h2>' +
+  const intro = drawTrial ? '已为你准备 100 次演示机会，点任意奶盒直接抽。' : '每季最多两次，第 1、2 个通关记录各解锁一次。';
+  const badge = drawTrial ? '100 次体验' : '第 ' + tour + ' 季';
+  return festival('gift-draw', '翻盒抽奖', intro,
+    '<section class="event-card"><span class="event-state">' + badge + '</span><h2>剩余 ' + left + ' 次</h2>' +
     '<p>随便翻一个奶盒，就能查看结果。</p>' + choices + actions(previous) + '</section>' +
     '<section class="event-card"><h2>本期奖品</h2><p>奖品为限定奶盒封面，也可能未中奖。</p></section>');
 }
 function flip(reference) {
-  const [tour, box] = ids(reference);
-  if (!tour || ![1,2,3].includes(box) || !state.logged || tour > publishedTour() || !drawStock(tour)) return;
+  const trialBox = /^test-([123])$/.exec(reference);
+  if (trialBox && !drawTrial) return;
+  const [tour, box] = trialBox ? [drawTrialKey, Number(trialBox[1])] : ids(reference);
+  if (!tour || ![1,2,3].includes(box) || (!trialBox && (!state.logged || tour > publishedTour())) || !drawStock(tour)) return;
   const drawings = state.drawings[tour] ??= [];
   const number = drawings.length + 1;
-  drawings.push({ box, outcome: state.lotteryMode, day: todayIndex() });
+  drawings.push({ box, outcome: trialBox ? state.trialOutcome : state.lotteryMode, day: todayIndex() });
   save();
   const buttons = app.querySelectorAll('.blind-choices button');
   buttons.forEach(button => { button.disabled = true; });
@@ -1353,10 +1377,11 @@ function flip(reference) {
   else gsap.to(current, { rotateY: 360, duration: .46, ease: 'back.out(1.2)', onComplete: show });
 }
 function records() {
-  const results = [1,2].flatMap(tour => allDraws(tour).map((entry, index) => {
+  const sources = drawTrial ? [drawTrialKey] : [1, 2];
+  const results = sources.flatMap(tour => allDraws(tour).map((entry, index) => {
     const id = drawId(tour, index + 1);
     return ticketCard(entry.outcome === 'win' ? drawPrize.label : '未中奖',
-      '第 ' + tour + ' 季 · ' + dateCaption(entry.day), link('查看','draw-result',id,'outline'),
+      (tour === drawTrialKey ? '第 ' + (index + 1) + ' 次体验' : '第 ' + tour + ' 季') + ' · ' + dateCaption(entry.day), link('查看','draw-result',id,'outline'),
       entry.outcome === 'win' ? claimTag(id) : '已开奖');
   })).reverse().join('');
   return festival('gift-wallet','中奖记录','翻盒后的结果都在这里。',results ||
@@ -1378,7 +1403,7 @@ function claim(id) {
   const spec = bonusSpec(id);
   if (!spec) return wallet();
   const item = state.extra[id];
-  const allowed = state.logged && spec.ready;
+  const allowed = (state.logged || isTrialPrize(id)) && spec.ready;
   let primary = link('登录后领取', 'login', 'claim-' + id, 'gild');
   if (allowed) {
     if (item?.status === 'ok') primary = link('打开数字权益', 'bonus', id, 'gild');
@@ -1392,12 +1417,15 @@ function claim(id) {
     actions(primary, link('查看我的权益', 'wallet', '', 'outline')) + '</section>',
     spec.source, spec.source === 'draw-result' ? id : '');
 }
+function isTrialPrize(id) {
+  return drawTrial && readDrawId(id)[0] === drawTrialKey;
+}
 function issueExtra(id, query = false) {
   const spec = bonusSpec(id);
   const earlier = state.extra[id];
-  if (!state.logged || !spec?.ready || earlier?.status === 'ok' || (earlier?.status === 'pending') !== query) return;
+  if ((!state.logged && !isTrialPrize(id)) || !spec?.ready || earlier?.status === 'ok' || (earlier?.status === 'pending') !== query) return;
   const item = state.extra[id] ??= { type: spec.kind, label: spec.label };
-  item.status = state.fulfillMode;
+  item.status = isTrialPrize(id) ? state.trialFulfillment : state.fulfillMode;
   save();
   render();
 }
@@ -1413,6 +1441,7 @@ function invite() {
 }
 function inviteHref() {
   const result = new URL(location.href);
+  result.searchParams.delete('draw');
   result.hash = 'friend/milk';
   return result.href;
 }
@@ -1707,11 +1736,11 @@ document.querySelector('#reminder-mode').addEventListener('change', event => {
   save();
 });
 document.querySelector('#lottery-mode').addEventListener('change', event => {
-  state.lotteryMode = event.target.value;
+  state[drawTrial ? 'trialOutcome' : 'lotteryMode'] = event.target.value;
   save();
 });
 document.querySelector('#fulfill-mode').addEventListener('change', event => {
-  state.fulfillMode = event.target.value;
+  state[drawTrial ? 'trialFulfillment' : 'fulfillMode'] = event.target.value;
   save();
 });
 window.addEventListener('hashchange', () => {
