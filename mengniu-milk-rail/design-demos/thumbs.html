@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>六个方向缩略图</title>
+<style>
+  body { margin: 0; background: #d9d3c7; font-family: "WenQuanYi Micro Hei", "PingFang SC", sans-serif; }
+  .sheet { display: grid; grid-template-columns: 480px 480px 480px; gap: 18px; padding: 18px; width: max-content; }
+  .cell { width: 480px; height: 300px; overflow: hidden; position: relative; }
+  .tag { position: absolute; left: 8px; top: 8px; z-index: 2; background: #fff; color: #111; font-size: 13px; padding: 4px 6px; }
+  img { display: block; object-fit: cover; }
+  h2 { margin: 0; letter-spacing: -0.04em; line-height: .9; }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <article class="cell" data-thumb="1" style="background:#0B4A28;color:#F4F7F0">
+    <span class="tag">1 双幕海报</span>
+    <img src="assets/campaign-media.webp" alt="" style="height:168px;width:100%;object-position:center 18%">
+    <div style="padding:8px 12px">
+      <h2 style="font-size:36px">接住奶盒</h2>
+      <p style="margin:4px 0 0">下面同时放内箱码 0/3 和抽奖</p>
+    </div>
+  </article>
+  <article class="cell" data-thumb="2" style="background:#F7F7F4;color:#161616;display:grid;grid-template-columns:1fr 1fr">
+    <span class="tag">2 白底两物</span>
+    <div style="padding:36px 12px"><img src="assets/carton-grass.png" alt="" style="width:160px;height:110px;object-fit:cover"><h2 style="font-size:28px;margin-top:8px">接 3 盒</h2></div>
+    <div style="padding:36px 12px"><img src="assets/calf-hold.png" alt="" style="width:140px;height:120px;object-fit:contain"><h2 style="font-size:28px;margin-top:8px">扫 0/3</h2></div>
+  </article>
+  <article class="cell" data-thumb="3" style="background:#F6E27A;color:#1A1408">
+    <span class="tag">3 标题压场景</span>
+    <img src="assets/poster.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9">
+    <div style="position:absolute;left:16px;top:48px">
+      <h2 style="font-size:48px;background:#06281A;color:#F4F1E4;display:inline-block;padding:0 8px">两个活动</h2>
+      <p style="background:#00B34F;color:#06210F;display:inline-block;padding:4px 8px;font-size:22px;font-weight:700">同时看得见</p>
+    </div>
+  </article>
+  <article class="cell" data-thumb="4" style="background:#06281A;color:#F4F1E4;display:grid;grid-template-columns:1fr 1fr">
+    <span class="tag">4 左右同台</span>
+    <div style="background:url('assets/campaign-media.webp') center 20%/cover;position:relative"><h2 style="position:absolute;left:10px;bottom:12px;font-size:32px">左接</h2></div>
+    <div style="padding:48px 10px 0"><img src="assets/calf-idle.png" alt="" style="width:160px;height:140px;object-fit:contain"><h2 style="font-size:32px">右扫</h2></div>
+  </article>
+  <article class="cell" data-thumb="5" style="display:grid;grid-template-columns:1fr 1fr">
+    <span class="tag">5 巨字接扫</span>
+    <div style="background:#111;color:#fff;padding:36px 12px"><h2 style="font-size:120px">接</h2><p>5 盒里的 3 盒</p></div>
+    <div style="background:#fff;color:#111;padding:36px 12px"><h2 style="font-size:120px">扫</h2><p style="font-size:28px;color:#00B34F">0/3</p></div>
+  </article>
+  <article class="cell" data-thumb="6" style="background:#1B1A17;position:relative">
+    <span class="tag">6 街招叠牌</span>
+    <div style="position:absolute;left:24px;top:36px;background:#9E2A1D;color:#fff;padding:10px 8px;font-size:28px;font-weight:700;writing-mode:vertical-rl">奶盒出逃</div>
+    <div style="position:absolute;left:92px;top:58px;background:#F6E27A;color:#111;padding:10px 8px;font-size:28px;font-weight:700;writing-mode:vertical-rl">内箱集码</div>
+    <div style="position:absolute;right:16px;bottom:16px;background:#00B34F;color:#06210F;padding:8px 10px;font-size:20px;font-weight:700">0/3 大奖一次</div>
+    <img src="assets/calf-cast.png" alt="" style="position:absolute;right:18px;top:28px;width:150px;height:150px;object-fit:contain">
+  </article>
+</div>
+</body>
+</html>

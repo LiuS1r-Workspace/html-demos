@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>方向三 左右同台 · 蒙牛双活动草稿</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --green:#00B34F; --deep:#06281A; --cream:#F4F1E4; --ink:#14281C; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--deep); color: var(--cream);
+    font-family: "WenQuanYi Micro Hei", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 16px; line-height: 1.45; }
+  button, input { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid #E2B100; outline-offset: 2px; }
+  a { color: var(--green); }
+  .fold { min-height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; }
+  .mast { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--cream); color: var(--ink); }
+  .mast img { height: 28px; width: auto; }
+  .panes { display: grid; grid-template-columns: 1fr 1.05fr; min-height: 0; }
+  .pane { min-width: 0; min-height: 0; position: relative; display: flex; flex-direction: column; }
+  .catch { background: #04160f center 20% / cover no-repeat; background-image: url('assets/campaign-media.webp'); }
+  .catch .shade { margin-top: auto; background: linear-gradient(180deg, transparent, #04160f 24%, #04160f); padding: 36px 10px 12px; }
+  h1, h2 { margin: 0; letter-spacing: -0.04em; line-height: 1; }
+  h1 { font-size: clamp(28px, 7vw, 56px); }
+  h2 { font-size: clamp(26px, 6vw, 48px); }
+  .lanes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; }
+  .lanes button { min-height: 64px; border: 1px dashed #b7e7c4; background: rgba(255,255,255,.06); border-radius: 10px; font-weight: 700; }
+  .lanes button[aria-pressed="true"] { background: rgba(0,179,79,.35); }
+  .scan { background: #083221; padding: 12px 10px 10px; }
+  .count { font-size: clamp(42px, 10vw, 84px); margin: 4px 0; line-height: .85; }
+  .pips { display: flex; gap: 5px; }
+  .pips i { width: 22px; height: 8px; border-radius: 99px; background: #1d6b40; display: block; }
+  .pips i.on { background: var(--green); }
+  .calf { width: min(100%, 220px); height: 150px; object-fit: contain; align-self: center; }
+  form { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+  input { min-height: 44px; border: 0; border-radius: 10px; padding: 0 10px; background: var(--cream); color: var(--ink); }
+  .go { min-height: 48px; border: 0; border-radius: 999px; background: var(--green); color: #06210F; font-weight: 700; }
+  .note, .mile { font-size: 14px; margin: 6px 0 0; }
+  .foot { display: flex; justify-content: space-between; gap: 8px; align-items: center; padding: 10px 12px; background: var(--cream); color: var(--ink); }
+  .foot strong { font-size: 16px; }
+  .result { display: flex; gap: 8px; align-items: center; background: #04160f; padding: 6px; border-radius: 10px; margin-top: 6px; }
+  .result[hidden] { display: none; }
+  .result img { width: 64px; height: 64px; object-fit: contain; background: #e7f4df; border-radius: 8px; }
+  .more { padding: 22px 16px 40px; background: #04160f; }
+  .line { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .line span { border-top: 3px solid var(--green); padding-top: 6px; }
+  @media (min-width: 960px) {
+    .fold { min-height: 100vh; }
+    .panes { grid-template-columns: 1.15fr .85fr; }
+    .catch .shade, .scan { padding: 28px; }
+    .calf { height: 280px; width: min(100%, 360px); }
+    .lanes button { min-height: 92px; font-size: 22px; }
+    .more { padding: 36px 48px 64px; }
+  }
+  @media (max-width: 360px) {
+    .calf { height: 110px; }
+    h1, h2 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="fold">
+  <header class="mast">
+    <img src="assets/logo.png" alt="蒙牛">
+    <span>左面接盒，右面集码</span>
+  </header>
+  <div class="panes">
+    <section class="pane catch" aria-label="活动一 接住奶盒">
+      <div class="shade">
+        <p>活动一</p>
+        <h1>奶盒出逃</h1>
+        <p>5 盒接住 3 盒。左、中、右三道。</p>
+        <div class="lanes" role="group" aria-label="选择接盒的方向">
+          <button type="button" data-lane="左">左</button>
+          <button type="button" data-lane="中">中</button>
+          <button type="button" data-lane="右">右</button>
+        </div>
+        <p class="note" data-lane-note>选一道，只作演示。正式对局仍在原活动页。</p>
+      </div>
+    </section>
+    <section class="pane scan" aria-label="活动二 内箱码">
+      <p>活动二</p>
+      <h2>内箱集码</h2>
+      <p class="count" data-scans>0/3</p>
+      <div class="pips" aria-hidden="true"><i data-pip></i><i data-pip></i><i data-pip></i></div>
+      <img class="calf" src="assets/calf-idle.png" alt="临时概念小牛手持魔棒，不是官方牛宝宝">
+      <form data-scan-form>
+        <input name="code" aria-label="内箱码" placeholder="盒内的码" autocomplete="off">
+        <button class="go" type="submit">记入这一次</button>
+      </form>
+      <p class="note" data-note>新码加 1 次累计，并加 1 次抽奖。同一码无效。校验是演示。</p>
+      <p>抽奖机会 <b data-chances>0</b></p>
+      <button class="go" type="button" data-draw>挥棒抽奖</button>
+      <div class="result" data-result hidden>
+        <img src="assets/calf-hold.png" alt="">
+        <div>
+          <strong>演示奖品</strong>
+          <p>双手托住的是占位礼盒。</p>
+          <a href="motion-wand.html">看挥棒</a>
+          <button type="button" data-close style="background:transparent;border:0;min-height:44px;color:#F4F1E4">收起</button>
+        </div>
+      </div>
+    </section>
+  </div>
+  <footer class="foot">
+    <strong data-milestone>集满3次大奖尚未达成</strong>
+    <span>活动一的签到和翻盒仍算原活动</span>
+  </footer>
+</div>
+<section class="more">
+  <div class="line">
+    <span>接住奶盒</span>
+    <span>月球或深海</span>
+    <span>再接一局</span>
+    <span>一楼开门了</span>
+  </div>
+  <p>两季分别是「电梯不到一楼」和「冰箱半夜开门」。签到、三站奶盒、翻盒、两周线上礼都属于活动一，奖品都是数字权益：表情、番外、封面。活动二只增加内箱码累计和挥棒机会。集满 3 次的大奖在这份草稿里只发生一次。</p>
+</section>
+<script>
+(function () {
+  const used = new Set();
+  let scans = 0, chances = 0, milestone = false, locked = false;
+  const scansEl = document.querySelector('[data-scans]');
+  const chanceEl = document.querySelector('[data-chances]');
+  const mileEl = document.querySelector('[data-milestone]');
+  const note = document.querySelector('[data-note]');
+  const pips = [...document.querySelectorAll('[data-pip]')];
+  const result = document.querySelector('[data-result]');
+  const paint = () => {
+    scansEl.textContent = Math.min(scans, 3) + '/3';
+    chanceEl.textContent = String(chances);
+    pips.forEach((pip, index) => pip.classList.toggle('on', index < Math.min(scans, 3)));
+    mileEl.textContent = milestone ? '集满3次大奖已达成，只记一次' : '集满3次大奖尚未达成';
+  };
+  document.querySelector('[data-scan-form]').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const input = event.target.elements.code;
+    const code = input.value.trim();
+    if (!code) { note.textContent = '请先输入盒内的码。'; return; }
+    const key = code.toLowerCase();
+    if (used.has(key)) { note.textContent = '这个码已经累计过，不会再记一次。'; return; }
+    used.add(key); scans += 1; chances += 1;
+    if (scans >= 3 && !milestone) milestone = true;
+    input.value = '';
+    note.textContent = '新码已计入。校验只是演示。';
+    paint();
+  });
+  document.querySelector('[data-draw]').addEventListener('click', () => {
+    if (locked) return;
+    if (chances < 1) { note.textContent = '还没有抽奖机会。先记入一个新码。'; return; }
+    locked = true; chances -= 1; paint(); result.hidden = false;
+  });
+  document.querySelector('[data-close]').addEventListener('click', () => { result.hidden = true; locked = false; });
+  const laneNote = document.querySelector('[data-lane-note]');
+  document.querySelectorAll('[data-lane]').forEach((button) => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('[data-lane]').forEach((item) => item.setAttribute('aria-pressed', item === button ? 'true' : 'false'));
+      laneNote.textContent = '演示选了' + button.dataset.lane + '道。正式接盒和计分仍在原活动页。';
+    });
+  });
+  paint();
+})();
+</script>
+</body>
+</html>

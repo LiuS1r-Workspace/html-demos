@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>方向一 草原双幕 · 蒙牛双活动草稿</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --green:#00B34F; --deep:#0B4A28; --ink:#14281C; --muted:#3C5A48; --paper:#F3F7EF; --cream:#FFFDF6; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "WenQuanYi Micro Hei", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 16px; line-height: 1.5; }
+  img { max-width: 100%; display: block; }
+  button, input { font: inherit; }
+  button { cursor: pointer; }
+  button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid #E2B100; outline-offset: 2px; }
+  a { color: var(--deep); }
+  .fold { min-height: 100dvh; display: flex; flex-direction: column; background: var(--cream); }
+  .mast { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; background: #fff; }
+  .mast img { height: 30px; width: auto; }
+  .mast span { font-size: 14px; color: var(--muted); }
+  .act1 { position: relative; flex: none; color: #F4F7F0; background: var(--deep); }
+  .act1 .photo { width: 100%; height: 148px; object-fit: cover; object-position: center 18%; }
+  .act1 .copy { padding: 8px 14px 10px; }
+  .kicker { margin: 0; font-size: 14px; font-weight: 700; }
+  h1 { margin: 2px 0 6px; font-size: clamp(34px, 9vw, 68px); line-height: .98; letter-spacing: -0.045em; }
+  .act1 p { margin: 0 0 8px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .solid, .ghost { min-height: 48px; padding: 0 16px; border-radius: 999px; border: 0; font-weight: 700; }
+  .solid { background: var(--green); color: #06210F; }
+  .ghost { background: transparent; color: inherit; border: 2px solid currentColor; }
+  .rail { display: grid; grid-template-columns: 88px 1fr; gap: 8px; padding: 10px 12px; background: #E7F3DE; align-items: center; }
+  .rail strong { font-size: 15px; }
+  .gifts { display: flex; gap: 8px; overflow: auto; }
+  .gift { flex: none; width: 92px; }
+  .gift i { display: block; height: 64px; border-radius: 8px; background-repeat: no-repeat; background-size: 200% 200%; }
+  .gift b { display: block; font-size: 13px; font-weight: 700; margin-top: 4px; }
+  .g1 { background-image: url('assets/reward-visuals.webp'); background-position: 0 100%; }
+  .g2 { background-image: url('assets/reward-visuals.webp'); background-position: 100% 0; }
+  .g3 { background-image: url('assets/collect-visual.webp'); background-position: 0 0; }
+  .act2 { flex: none; display: grid; grid-template-columns: 1.15fr .85fr; gap: 8px; padding: 10px 12px 12px; background: var(--deep); color: #F4F7F0; }
+  .act2 h2 { margin: 0 0 4px; font-size: clamp(28px, 7vw, 48px); line-height: 1; letter-spacing: -0.04em; }
+  .count { font-size: clamp(40px, 10vw, 72px); line-height: .9; margin: 4px 0; letter-spacing: -0.04em; }
+  .pips { display: flex; gap: 6px; margin-bottom: 8px; }
+  .pips i { width: 28px; height: 12px; border-radius: 99px; background: #1d6b40; display: block; }
+  .pips i.on { background: var(--green); }
+  form { display: flex; gap: 8px; }
+  input { min-height: 48px; flex: 1; min-width: 0; border-radius: 12px; border: 0; padding: 0 12px; background: #F4F7F0; color: var(--ink); }
+  .calf { width: 100%; max-height: 132px; object-fit: contain; object-position: center bottom; }
+  .note, .mile { font-size: 14px; margin: 8px 0 0; }
+  .result { grid-column: 1 / -1; display: flex; gap: 10px; align-items: center; background: #08381F; border-radius: 12px; padding: 8px; }
+  .result[hidden] { display: none; }
+  .result img { width: 88px; height: 88px; object-fit: contain; background: #e7f4df; border-radius: 8px; }
+  .more { padding: 22px 16px 40px; }
+  .more h2 { font-size: 28px; margin: 0 0 8px; }
+  .strip { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; }
+  .strip article { background: #fff; border-radius: 12px; overflow: hidden; }
+  .strip i { display: block; height: 92px; background: url('assets/story-visuals.webp') center / 200% 200% no-repeat; }
+  .s1 { background-position: 0 100%; }
+  .s2 { background-position: 0 0; }
+  .s3 { background-position: 100% 100%; }
+  .s4 { background-position: 100% 0; }
+  .strip div { padding: 8px; }
+  .strip strong { display: block; }
+  .fine { color: var(--muted); }
+  @media (max-width: 700px) {
+    .act2 > div:nth-child(2) .note { display: none; }
+    .act2 .solid { width: 100%; padding: 0 8px; font-size: 15px; }
+  }
+  @media (max-width: 380px) {
+    .strip { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 960px) {
+    .fold { min-height: 100vh; }
+    .act1 { display: grid; grid-template-columns: 1.3fr .7fr; min-height: 0; }
+    .act1 .photo { height: 100%; min-height: 420px; }
+    .act1 .copy { display: flex; flex-direction: column; justify-content: flex-end; padding: 32px; }
+    h1 { font-size: 72px; }
+    .act2 { grid-template-columns: 1.2fr .8fr auto; align-items: end; padding: 20px 28px; }
+    .calf { max-height: 280px; }
+    .more { padding: 36px 48px 64px; }
+    .strip i { height: 140px; }
+  }
+</style>
+</head>
+<body>
+<div class="fold">
+  <header class="mast">
+    <img src="assets/logo.png" alt="蒙牛">
+    <span>两个活动同时在这一页</span>
+  </header>
+  <section class="act1" aria-label="活动一 奶盒出逃计划">
+    <img class="photo" src="assets/campaign-media.webp" alt="本活动已有插画：小牛坐在奶盒吊篮里，飞过草原">
+    <div class="copy">
+      <p class="kicker">活动一 仍是原来的奶盒出逃计划</p>
+      <h1>接住奶盒</h1>
+      <p>第 1 季「电梯不到一楼」。点左、中、右。每局 5 盒，接住 3 盒过关，接满 5 盒带走同伴。</p>
+      <div class="row">
+        <button class="solid" type="button" data-play>开始这一局</button>
+        <a class="ghost" href="#rules">签到、三站收集、翻盒</a>
+      </div>
+      <p class="note" data-play-note hidden>草稿不进入正式游戏，也不改原页面进度。正式接盒仍在原来的活动里。</p>
+    </div>
+  </section>
+  <section class="rail" aria-label="活动一已有的数字礼">
+    <strong>活动一的数字礼，没有现金</strong>
+    <div class="gifts">
+      <div class="gift"><i class="g1" role="img" aria-label="签到表情插画"></i><b>首签表情</b></div>
+      <div class="gift"><i class="g2" role="img" aria-label="翻盒封面插画"></i><b>翻盒封面</b></div>
+      <div class="gift"><i class="g3" role="img" aria-label="集齐纪念插画"></i><b>集齐封面</b></div>
+    </div>
+  </section>
+  <section class="act2" aria-label="活动二 内箱码">
+    <div>
+      <p class="kicker">活动二 新产品内箱码</p>
+      <h2>扫一次，记一次</h2>
+      <p class="count" data-scans>0/3</p>
+      <div class="pips" aria-hidden="true"><i data-pip></i><i data-pip></i><i data-pip></i></div>
+      <p>每个新码累计 1 次，并给 1 次抽奖机会。同一个码不会再记。</p>
+      <form data-scan-form>
+        <input name="code" aria-label="内箱码" placeholder="输入盒内的码" autocomplete="off">
+        <button class="solid" type="submit">记入这一次</button>
+      </form>
+      <p class="mile" data-milestone>集满3次大奖尚未达成</p>
+      <p class="note" data-note>内箱码校验是演示，没有连接真实系统。</p>
+      <p>抽奖机会 <b data-chances>0</b></p>
+    </div>
+    <div>
+      <img class="calf" src="assets/calf-hold.png" alt="临时概念小牛双手捧着礼盒，不是官方牛宝宝">
+      <button class="solid" type="button" data-draw>挥棒抽奖</button>
+      <p class="note">临时概念角色，待官方形象替换。</p>
+    </div>
+    <div class="result" data-result hidden>
+      <img src="assets/calf-hold.png" alt="">
+      <div>
+        <strong>演示奖品</strong>
+        <p>没有金额、概率和真实发货。机会在点击时扣掉 1 次，揭晓不会再扣一次。</p>
+        <a href="motion-wand.html">看完整挥棒</a>
+        <button class="ghost" type="button" data-close>收起</button>
+      </div>
+    </div>
+  </section>
+</div>
+<section class="more" id="rules">
+  <h2>活动一原来怎么玩</h2>
+  <p class="fine">第 1 季「电梯不到一楼」，第 2 季「冰箱半夜开门」。四周更新：接住奶盒、月球或深海、再接一局、一楼开门了。签到首日得动态表情，累计 3 天得番外。草原、月球、深海各找一款奶盒，集齐领纪念封面。每季前两集各解锁一次翻盒，奖品是限定封面。两周都完成主关，可在番外短片和草原封面里二选一。这些都是数字权益。本页是视觉草稿，不写入原活动进度。</p>
+  <div class="strip">
+    <article><i class="s1"></i><div><strong>接住奶盒</strong><span>第 1 集</span></div></article>
+    <article><i class="s2"></i><div><strong>月球或深海</strong><span>第 2 集</span></div></article>
+    <article><i class="s3"></i><div><strong>再接一局</strong><span>第 3 集</span></div></article>
+    <article><i class="s4"></i><div><strong>一楼开门了</strong><span>第 4 集</span></div></article>
+  </div>
+  <p class="fine">活动二的大奖只写成「集满3次大奖」。这份草稿假定第一次集满之后不再循环，等你确认再做正式流程。</p>
+</section>
+<script>
+(function () {
+  const used = new Set();
+  let scans = 0, chances = 0, milestone = false, locked = false;
+  const scansEl = document.querySelector('[data-scans]');
+  const chanceEl = document.querySelector('[data-chances]');
+  const mileEl = document.querySelector('[data-milestone]');
+  const note = document.querySelector('[data-note]');
+  const pips = [...document.querySelectorAll('[data-pip]')];
+  const result = document.querySelector('[data-result]');
+  const paint = () => {
+    scansEl.textContent = Math.min(scans, 3) + '/3';
+    chanceEl.textContent = String(chances);
+    pips.forEach((pip, index) => pip.classList.toggle('on', index < Math.min(scans, 3)));
+    mileEl.textContent = milestone ? '集满3次大奖已达成。按一次封顶，之后的新码只加抽奖机会。' : '集满3次大奖尚未达成';
+  };
+  document.querySelector('[data-scan-form]').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const input = event.target.elements.code;
+    const code = input.value.trim();
+    if (!code) { note.textContent = '请先输入盒内的码。'; return; }
+    const key = code.toLowerCase();
+    if (used.has(key)) { note.textContent = '这个码已经累计过，不会再记一次，也不会多给抽奖机会。'; return; }
+    used.add(key);
+    scans += 1;
+    chances += 1;
+    if (scans >= 3 && !milestone) milestone = true;
+    input.value = '';
+    note.textContent = scans > 3 ? '新码已计入。大奖里程碑不再重复。校验只是演示。' : '新码已计入。累计和抽奖机会各加 1。校验只是演示。';
+    paint();
+  });
+  document.querySelector('[data-draw]').addEventListener('click', () => {
+    if (locked) return;
+    if (chances < 1) { note.textContent = '还没有抽奖机会。先记入一个没使用过的码。'; return; }
+    locked = true;
+    chances -= 1;
+    paint();
+    result.hidden = false;
+  });
+  document.querySelector('[data-close]').addEventListener('click', () => { result.hidden = true; locked = false; });
+  document.querySelector('[data-play]').addEventListener('click', () => {
+    document.querySelector('[data-play-note]').hidden = false;
+  });
+  paint();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>挥棒抽奖动效草稿 · 临时概念小牛</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --deep:#0B4A28; --green:#00B34F; --ink:#14281C; --paper:#F3F7EF; --cream:#FFFDF6; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100dvh;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "WenQuanYi Micro Hei", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .layout { display: grid; min-height: 100dvh; }
+  .copy { padding: 18px 18px 8px; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand img { height: 32px; width: auto; display: block; }
+  h1 { font-size: clamp(32px, 8vw, 64px); line-height: 1.02; letter-spacing: -0.04em; margin: 12px 0 8px; }
+  p { margin: 0 0 10px; }
+  .warn { background: #FFF4CC; color: #3A2E08; padding: 10px 12px; border-radius: 10px; }
+  button, a.btn {
+    min-height: 48px; padding: 0 16px; border: 0; border-radius: 999px;
+    background: var(--deep); color: #F4F7F0; font: inherit; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
+  }
+  button:disabled { opacity: .45; }
+  button:focus-visible, a:focus-visible { outline: 3px solid #E2B100; outline-offset: 3px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .status { min-height: 48px; font-weight: 700; }
+  .stage-wrap { padding: 0 12px 18px; }
+  #stage {
+    position: relative; height: min(68dvh, 640px); min-height: 420px;
+    background:
+      radial-gradient(ellipse at 50% 88%, #d7efc8 0%, transparent 55%),
+      linear-gradient(#e7f4df, #f7fbf4);
+    border-radius: 18px; overflow: hidden;
+  }
+  .pose { position: absolute; left: 50%; bottom: 0; width: min(92%, 520px); height: 92%;
+    transform: translateX(-50%); object-fit: contain; object-position: center bottom; }
+  .pose-cast, .pose-hold, .mote, .glint, .sweep { opacity: 0; }
+  .wrist { position: absolute; left: 27%; top: 58%; width: 14px; height: 14px; }
+  .rod {
+    position: absolute; left: 0; bottom: 0; width: 12px; height: 118px; border-radius: 8px;
+    background: linear-gradient(#F4F7EF, #1F8F45 28%, #0B4A28);
+    transform-origin: 50% 100%;
+  }
+  .tip {
+    position: absolute; left: 50%; top: -10px; width: 22px; height: 22px; border-radius: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, #fff 0%, #FFE38A 35%, rgba(255,196,40,.0) 70%);
+    box-shadow: 0 0 18px 6px rgba(255, 210, 70, .75);
+  }
+  .mote, .glint {
+    position: absolute; left: 0; top: 0; width: 10px; height: 10px; border-radius: 50%;
+    background: #FFE38A; pointer-events: none;
+  }
+  .glint { background: #fff; }
+  .sweep { position: absolute; left: 39%; top: 49%; width: 22%; height: 14%; overflow: hidden; pointer-events: none; border-radius: 8px; }
+  .sweep i { position: absolute; top: -10%; bottom: -10%; width: 46%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.92), transparent); }
+  .board { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; padding: 0 12px 28px; }
+  .board figure { margin: 0; background: var(--cream); border-radius: 12px; overflow: hidden; }
+  .board img { width: 100%; height: 120px; object-fit: contain; background: #e7f4df; display: block; }
+  .board figcaption { padding: 8px; font-size: 14px; }
+  @media (min-width: 960px) {
+    .layout { grid-template-columns: minmax(320px, 420px) minmax(0, 1fr); }
+    .copy { padding: 28px 28px 12px 36px; }
+    .stage-wrap { padding: 28px 36px 12px 0; }
+    .board { padding: 0 36px 36px 0; }
+    #stage { height: min(78vh, 760px); }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <section class="copy">
+    <div class="brand"><img src="assets/logo.png" alt="蒙牛"><strong>动效草稿</strong></div>
+    <h1>挥棒，再把奖品端出来</h1>
+    <p class="warn">画面里的小牛是临时概念，只沿用本活动已有的黏土小牛画风。它不是官方「牛宝宝」，也不是 2019 年公布、但这次没有拿到可用文件的吉祥物「蒙思壮」。正式上线前必须替换。</p>
+    <p>棒绕手腕抬起，棒尖聚光，光点弧线飞向胸口。小牛换成双手托住礼盒的姿势，礼盒跟着人一起出现，再扫一道高光。动画结束不会发奖，也不会把同一次机会记两次。</p>
+    <div class="actions">
+      <button type="button" id="play">挥棒施法</button>
+      <a class="btn" href="dir-1.html" style="background:#E4F5E4;color:#0B4A28">返回方向稿</a>
+    </div>
+    <p class="status" id="status" aria-live="polite">待机。棒在手里。</p>
+  </section>
+  <div>
+    <div class="stage-wrap">
+      <div id="stage">
+        <img class="pose pose-idle" src="assets/calf-idle.png" alt="">
+        <img class="pose pose-cast" src="assets/calf-cast.png" alt="">
+        <img class="pose pose-hold" src="assets/calf-hold.png" alt="">
+        <div class="wrist" aria-hidden="true"><div class="rod"><i class="tip"></i></div></div>
+        <div class="motes" aria-hidden="true"><i class="mote"></i><i class="mote"></i><i class="mote"></i><i class="mote"></i><i class="mote"></i><i class="mote"></i></div>
+        <div class="sweep" aria-hidden="true"><i></i></div>
+        <div class="glints" aria-hidden="true"><i class="glint"></i><i class="glint"></i><i class="glint"></i><i class="glint"></i><i class="glint"></i></div>
+      </div>
+    </div>
+    <div class="board" aria-label="分镜静帧">
+      <figure><img src="assets/calf-idle.png" alt=""><figcaption>1 待机，棒在手中</figcaption></figure>
+      <figure><img src="assets/calf-cast.png" alt=""><figcaption>2 挥棒，棒尖聚光</figcaption></figure>
+      <figure><img src="assets/calf-hold.png" alt=""><figcaption>3 双手托住礼盒</figcaption></figure>
+      <figure><img src="assets/calf-hold.png" alt=""><figcaption>4 礼盒上扫光，点到为止</figcaption></figure>
+    </div>
+  </div>
+</div>
+<script src="vendor/gsap.min.js"></script>
+<script>
+(function () {
+  const stage = document.querySelector('#stage');
+  const status = document.querySelector('#status');
+  const play = document.querySelector('#play');
+  const frame = new URLSearchParams(location.search).get('frame');
+  const say = (text) => { status.textContent = text; };
+  let mm = gsap.matchMedia();
+  let tl = null;
+  let running = false;
+
+  mm.add({
+    reduce: '(prefers-reduced-motion: reduce)',
+    motion: '(prefers-reduced-motion: no-preference)'
+  }, (context) => {
+    const reduce = context.conditions.reduce;
+    gsap.set('.pose-cast, .pose-hold, .mote, .glint, .sweep i', { autoAlpha: 0 });
+    gsap.set('.pose-idle', { autoAlpha: 1 });
+    gsap.set('.rod', { rotation: 18, transformOrigin: '50% 100%' });
+    gsap.set('.tip', { scale: 0.6, transformOrigin: '50% 50%' });
+    gsap.set('.pose-hold', { scale: 0.92, transformOrigin: '50% 80%' });
+
+    if (reduce) {
+      gsap.set('.pose-idle, .pose-cast, .wrist, .mote', { autoAlpha: 0 });
+      gsap.set('.pose-hold', { autoAlpha: 1, scale: 1 });
+      say('已按减少动效，直接停在双手端奖。不会重复发奖。');
+      play.disabled = true;
+      return () => {};
+    }
+
+    const motes = gsap.utils.toArray('.mote');
+    const glints = gsap.utils.toArray('.glint');
+    tl = gsap.timeline({
+      paused: true,
+      defaults: { duration: 0.45, ease: 'power2.out' },
+      onComplete: () => {
+        running = false;
+        play.disabled = false;
+        say('施法结束。这一遍只播放，没有写入抽奖次数，也不会再发一次奖。');
+      }
+    });
+    tl.addLabel('shotIdle', 0);
+    tl.addLabel('cast', 0.12);
+    tl.to('.rod', { rotation: -62, duration: 0.5 }, 'cast');
+    tl.to('.tip', { scale: 1.7, duration: 0.4 }, 'cast+=0.12');
+    motes.forEach((mote, index) => {
+      const delay = index * 0.045;
+      tl.fromTo(mote,
+        { x: 150, y: 250, autoAlpha: 0, scale: 0.4 },
+        { x: 210 + index * 14, y: 120 - index * 8, autoAlpha: 1, scale: 1, duration: 0.34, ease: 'sine.out', immediateRender: false },
+        'cast+=' + (0.16 + delay));
+      tl.to(mote,
+        { x: 300 + (index - 2) * 10, y: 300, autoAlpha: 0, scale: 0.3, duration: 0.42, ease: 'sine.in' },
+        'cast+=' + (0.42 + delay));
+    });
+    tl.to('.pose-cast', { autoAlpha: 1, duration: 0.35 }, 'cast+=0.28');
+    tl.to('.pose-idle, .wrist', { autoAlpha: 0, duration: 0.3 }, 'cast+=0.34');
+    tl.addLabel('shotCast', 0.95);
+    tl.addLabel('reveal', 1.05);
+    tl.to('.pose-hold', { autoAlpha: 1, scale: 1, duration: 0.55, ease: 'back.out(1.5)' }, 'reveal');
+    tl.to('.pose-cast', { autoAlpha: 0, duration: 0.35 }, 'reveal');
+    tl.addLabel('shotReveal', 1.62);
+    tl.addLabel('sparkle', 1.68);
+    tl.fromTo('.sweep i', { xPercent: -180, autoAlpha: 1 }, { xPercent: 260, duration: 0.55, ease: 'sine.inOut' }, 'sparkle');
+    glints.forEach((glint, index) => {
+      const spot = [{x:250,y:250},{x:360,y:230},{x:300,y:210},{x:390,y:280},{x:240,y:300}][index];
+      tl.fromTo(glint,
+        { x: spot.x, y: spot.y, autoAlpha: 0, scale: 0.2 },
+        { autoAlpha: 1, scale: 1, duration: 0.28, ease: 'sine.out', yoyo: true, repeat: 1, immediateRender: false },
+        'sparkle+=' + (index * 0.06));
+    });
+    tl.addLabel('shotSparkle', 2.15);
+
+    const shots = { idle: 'shotIdle', cast: 'shotCast', reveal: 'shotReveal', sparkle: 'shotSparkle' };
+    const lines = {
+      idle: '待机。棒在手里。',
+      cast: '挥棒。棒绕手腕抬起，棒尖聚光，光点飞向胸口。',
+      reveal: '双手端出奖品。礼盒由小牛托住，不是单独弹出。',
+      sparkle: '奖品扫过一道高光，四周只留很少的闪光。'
+    };
+    if (frame && shots[frame]) {
+      tl.seek(shots[frame]).pause();
+      say(lines[frame]);
+      play.disabled = true;
+    }
+
+    return () => { tl.kill(); tl = null; };
+  }, stage);
+
+  play.addEventListener('click', () => {
+    if (running || !tl) return;
+    running = true;
+    play.disabled = true;
+    say('正在施法。完成前不能再点一次。');
+    tl.restart();
+  });
+
+  window.addEventListener('pagehide', () => { mm.revert(); });
+})();
+</script>
+</body>
+</html>
